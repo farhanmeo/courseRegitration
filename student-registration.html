@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<title>student-registration</title>
+
+	<link rel="stylesheet" href="assets/demo.css">
+	<link rel="stylesheet" href="assets/form-basic.css">
+
+</head>
+
+
+	<header style = "background-color : maroon;">
+		<h1>DHA SUFFA UNIVERSIY</h1>
+		<h3>Course Registration System</h3>
+    </header>
+
+   <ul>
+        <li><a href="student-login.html">Student Login</a></li>
+        <li><a href="pa-login.html">PA Login</a></li>
+        <li><a href="teacher-login.html">Teacher Login</a></li>
+        <li><a href="student-registration.html">Student Registration</a></li>
+      
+    </ul>
+
+
+    <div class="main-content">
+
+        <!-- You only need this form and the form-basic.css -->
+
+        <form class="form-basic" method="post" action="#">
+
+            <div class="form-title-row">
+                <h1>STUDENT LOGIN</h1>
+            </div>
+
+            <div class="form-row">
+                <label>
+                    <span>First Name : </span>
+                    <input type="text" name="f_name">
+                </label>
+            </div>
+			 <div class="form-row">
+                <label>
+                    <span>Last Name : </span>
+                    <input type="text" name="l_name">
+                </label>
+            </div>
+			<div class="form-row">
+                <label>
+                    <span>Address : </span>
+                    <input type="text" name="address">
+                </label>
+            </div>
+			 <div class="form-row">
+                <label>
+                    <span>Contact Number : </span>
+                    <input type="text" name="d">
+                </label>
+            </div>
+			 <div class="form-row">
+                <label>
+                    <span>DSU ID : </span>
+                    <input type="text" name="dsu_id">
+                </label>
+            </div>
+            <div class="form-row">
+                <label>
+                    <span>Email : </span>
+                    <input type="email" name="email">
+                </label>
+            </div>
+			<div class="form-row">
+                <label>
+                    <span>Joining Year : </span>
+                    <input type="email" name="join_year">
+                </label>
+            
+			</div>
+			
+			  <div class="form-row">
+                <label><span>Radio</span></label>
+                <div class="form-radio-buttons">
+
+                    <div>
+                        <label>
+                            <input type="radio" name="radio">
+                            <span>Fall</span>
+                        </label>
+                    </div>
+
+                    <div>
+                        <label>
+                            <input type="radio" name="radio">
+                            <span>Spring</span>
+                        </label>
+                    </div>
+				</div>	
+
+           
+         
+
+            <div class="form-row">
+                <button type="submit">Submit Form</button>
+            </div>
+
+        </form>
+
+    </div>
+
+
+	
+</body>
+
+</html>
+
+
+<?php
+
+
+// define variables and set to empty values
+$name = $email = $gender = $comment = $website = "";
+
+$conn = mysqli_connect("localhost" , "root" , "" , "regestration");
+if(mysqli_connect_errno()){
+
+echo "Error Cccurred ";
+
+}
+
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+  $f_name = test_input($_POST["f_name"]);
+    $l_name = test_input($_POST["l_name"]);
+	  $address = test_input($_POST["address"]);
+	    $dsu_id = test_input($_POST["dsu_id"]);
+  $email = test_input($_POST["email"]);
+  $join_year = test_input($_POST["join_year"]);
+
+
+}
+
+function test_input($data) {
+  $data = trim($data);
+  $data = stripslashes($data);
+  $data = htmlspecialchars($data);
+  return $data;
+}
+?>
+
+
+<?php
+//echo "<h2>Your Input:</h2>";
+//echo $name;
+//echo "<br>";
+//echo $email;
+//echo "<br>";
+//echo $website;
+//echo "<br>";
+//echo $comment;
+
+$sql = "INSERT INTO registrationstudent(f_name,l_name,address,dsu_id,email,join_year)
+VALUES ('$f_name',  '$l_name' ,'$address' , '$dsu_id','$email' ,'$join_year')";
+
+
+if ($conn->query($sql) === TRUE) {
+    echo "";
+} else {
+    echo "Error: " . $sql . "<br>" . $conn->error;
+}
+?>
